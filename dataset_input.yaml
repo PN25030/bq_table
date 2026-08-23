@@ -1,0 +1,51 @@
+# ------------------------------------------------------------------
+# BigQuery dataset input — fill in what you need, delete the rest.
+# Anything left blank or removed is simply omitted from the generated
+# Terraform (the provider will use its own defaults for those fields).
+# ------------------------------------------------------------------
+
+# REQUIRED
+dataset_id: ent_data_wh
+
+# Common optional fields
+project: my-gcp-project
+location: US
+friendly_name: "Enterprise data warehouse"
+description: "Curated views for enterprise reporting"
+default_table_expiration_ms: 31536000000      # 365 days
+default_partition_expiration_ms: 2592000000   # 30 days
+max_time_travel_hours: 96
+is_case_insensitive: false
+default_collation: ""
+storage_billing_model: LOGICAL
+deletion_policy: DELETE
+delete_contents_on_destroy: false
+
+labels:
+  env: prod
+  team: data-platform
+
+# resource_tags:
+#   "123456789012/environment": "Production"
+
+# One block per grantee. Delete entries you don't need, add more as needed.
+access:
+  - role: OWNER
+    user_by_email: bq-storage-sa@my-gcp-project.iam.gserviceaccount.com
+  - role: READER
+    domain: example.com
+
+# Uncomment to encrypt with a customer-managed key
+# default_encryption_configuration:
+#   kms_key_name: projects/my-gcp-project/locations/us/keyRings/my-keyring/cryptoKeys/my-key
+
+# Uncomment if this dataset points at an external metastore (e.g. AWS Glue)
+# external_dataset_reference:
+#   external_source: "aws-glue://arn:aws:glue:us-east-1:999999999999:database/database"
+#   connection: "projects/my-gcp-project/locations/aws-us-east-1/connections/my-connection"
+
+# Uncomment for open-source-catalog compatible datasets (Hive metastore style)
+# external_catalog_dataset_options:
+#   default_storage_location_uri: "gs://my-bucket/tables"
+#   parameters:
+#     dataset_owner: "data-platform-team"
